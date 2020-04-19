@@ -9,7 +9,7 @@ namespace CommonUtils
 {
     public class FileUtils
     {
-        string ClosestParentFolderOrNull(string path, string folderToFind)
+        public static string ClosestParentFolderOrNull(string path, string folderToFind)
         {
             IEnumerable<string> getAvailableParts()
             {
@@ -24,11 +24,11 @@ namespace CommonUtils
                 }
             }
 
-            var availableParts = getAvailableParts();
-            if (availableParts == null)
+            var availableParts = getAvailableParts().ToArray();
+            if (availableParts.Count() == 0)
                 return null;
 
-            return Path.Combine(availableParts.ToArray());
+            return Path.Combine(availableParts.Reverse().ToArray());
         }
     }
 }
