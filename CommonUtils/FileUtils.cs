@@ -51,7 +51,7 @@ namespace CommonUtils
             if (binFolder == null)
                 throw new Exception("Не нашлась папка 'bin'");
             string folderProjectLevel =
-                Path.GetFullPath(Path.Combine(binFolder, "..", ".."));
+                Path.GetFullPath(Path.Combine(binFolder, ".."));
 
             return folderProjectLevel;
         }
