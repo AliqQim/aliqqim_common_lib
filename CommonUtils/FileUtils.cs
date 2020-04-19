@@ -12,6 +12,10 @@ namespace CommonUtils
     {
         public static string ClosestParentFolderOrNull(string path, string folderToFind)
         {
+            //пути регистронезависимы
+            folderToFind = folderToFind.ToLower();  //TODO (low) проверять, может, файловая система регистрозависима. тогда не надо лоуеркейсить
+            path = path.ToLower();
+
             IEnumerable<string> getAvailableParts()
             {
                 var parts = path.Split('/', '\\');
