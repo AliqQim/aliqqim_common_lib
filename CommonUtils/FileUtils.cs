@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -42,13 +43,21 @@ namespace CommonUtils
         /// за основу взято https://sau001.wordpress.com/2019/02/24/net-core-unit-tests-how-to-deploy-files-without-using-deploymentitem/
         /// </summary>
         /// <returns></returns>
-        public static string GetPathToCurrentAssemblyProjectFolder()
+        public static string GetPathToCurrentAssemblyProjectUnderDebugFolder()
         {
-            return GetPathToAssemblyProjectFolder(Assembly.GetExecutingAssembly());
+            return GetPathToAssemblyProjectUnderDebugFolder(Assembly.GetExecutingAssembly());
         }
 
-        public static string GetPathToAssemblyProjectFolder(Assembly assembly)
+        /// <summary>
+        /// возвращает путь к папке проекта, исходя из того, что переданная сборка 
+        /// лежит в этой папке где-то внутри подпапки "bin"
+        /// </summary>
+        /// <param name="assembly"></param>
+        /// <returns></returns>
+        public static string GetPathToAssemblyProjectUnderDebugFolder(Assembly assembly)
         {
+            Trace.Assert(MiscUtils.AreWeUnderDebug());  //метод имеет смысл только при запуске из Visual Studio
+
             string pathAssembly = assembly.Location;
             string folderAssembly = Path.GetDirectoryName(pathAssembly);
             string binFolder = ClosestParentFolderOrNull(folderAssembly, "bin");
