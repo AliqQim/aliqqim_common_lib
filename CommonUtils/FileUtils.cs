@@ -64,7 +64,7 @@ namespace CommonUtils
             string folderProjectLevel =
                 Path.GetFullPath(Path.Combine(binFolder, ".."));
 
-            Debug.Assert(Directory.GetFiles(binFolder, "*.csproj").Count() == 1);
+            Debug.Assert(Directory.GetFiles(folderProjectLevel, "*.csproj").Count() == 1);
 
             return folderProjectLevel;
         }
