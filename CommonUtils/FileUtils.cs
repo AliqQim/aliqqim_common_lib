@@ -11,7 +11,7 @@ namespace CommonUtils
 {
     public class FileUtils
     {
-        public static string ClosestParentFolderOrNull(string path, string folderToFind)
+        public static string? ClosestParentFolderOrNull(string path, string folderToFind)
         {
             //пути регистронезависимы
             folderToFind = folderToFind.ToLower();  //TODO (low) проверять, может, файловая система регистрозависима. тогда не надо лоуеркейсить
@@ -43,9 +43,9 @@ namespace CommonUtils
         /// за основу взято https://sau001.wordpress.com/2019/02/24/net-core-unit-tests-how-to-deploy-files-without-using-deploymentitem/
         /// </summary>
         /// <returns></returns>
-        public static string GetPathToCurrentAssemblyProjectUnderDebugFolder()
+        public static string GetPathToCurrentAssemblyCsprojFolder()
         {
-            return GetPathToAssemblyProjectUnderDebugFolder(Assembly.GetExecutingAssembly());
+            return GetPathToCsprojFolder(Assembly.GetExecutingAssembly());
         }
 
         /// <summary>
@@ -54,17 +54,17 @@ namespace CommonUtils
         /// </summary>
         /// <param name="assembly"></param>
         /// <returns></returns>
-        public static string GetPathToAssemblyProjectUnderDebugFolder(Assembly assembly)
+        public static string GetPathToCsprojFolder(Assembly assembly)
         {
-            Trace.Assert(MiscUtils.AreWeUnderDebug());  //метод имеет смысл только при запуске из Visual Studio
-
             string pathAssembly = assembly.Location;
             string folderAssembly = Path.GetDirectoryName(pathAssembly);
-            string binFolder = ClosestParentFolderOrNull(folderAssembly, "bin");
-            if (binFolder == null)
-                throw new Exception("Не нашлась папка 'bin'");
+            string binFolder = ClosestParentFolderOrNull(folderAssembly, "bin") 
+                ?? throw new Exception("couldn't find 'bin' folder");
+
             string folderProjectLevel =
                 Path.GetFullPath(Path.Combine(binFolder, ".."));
+
+            Debug.Assert(Directory.GetFiles(binFolder, "*.csproj").Count() == 1);
 
             return folderProjectLevel;
         }
