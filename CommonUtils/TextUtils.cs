@@ -9,11 +9,12 @@ namespace CommonUtils
     {
 
         //https://stackoverflow.com/a/2334958
-        public static string StripTags(string htmlString)
+        public static string StripTags(string htmlString, bool replaceWithLineBreaks = true)
         {
             string pattern = @"<(.|\n)*?>"; //OPTIMIZE make lazy static, compiled
 
-            return Regex.Replace(htmlString, pattern, string.Empty);
+            return Regex.Replace(htmlString, pattern, 
+                replaceWithLineBreaks ? "\n" : string.Empty);
         }
     }
 }
