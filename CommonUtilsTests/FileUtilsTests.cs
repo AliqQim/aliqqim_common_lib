@@ -18,7 +18,7 @@ namespace CommonUtils.Tests
             string folderToFind, 
             string expectedOutput)
         {
-            string res = FileUtils.ClosestParentFolderOrNull(inputPath, folderToFind);
+            string? res = FileUtils.ClosestParentFolderOrNull(inputPath, folderToFind);
             Assert.Equal(expectedOutput, res);
         }
     }

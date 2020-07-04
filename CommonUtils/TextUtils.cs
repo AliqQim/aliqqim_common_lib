@@ -16,5 +16,6 @@ namespace CommonUtils
             return Regex.Replace(htmlString, pattern, 
                 replaceWithLineBreaks ? "\n" : string.Empty);
         }
+
     }
 }
