@@ -11,8 +11,10 @@ namespace CommonUtils.Tests
     public class TextUtilsTests
     {
         [Theory]
-        [InlineData(@"StripTagsTestFiles\input.xml", @"StripTagsTestFiles\output.txt")]
-        public void StripTags_StandardCase(string input, string output)
+        [InlineData(@"StripTagsTestFiles\StandardCase\input.xml", @"StripTagsTestFiles\StandardCase\output.txt")]
+        [InlineData(@"StripTagsTestFiles\SingleLine\input.xml", @"StripTagsTestFiles\SingleLine\output.txt")]
+        [InlineData(@"StripTagsTestFiles\TagSpletedByLinebreak\input.xml", @"StripTagsTestFiles\TagSpletedByLinebreak\output.txt")]
+        public void StripTagsTests(string input, string output)
         {
             string basePath = FileUtils.GetPathToCurrentAssemblyCsprojFolder();
 
