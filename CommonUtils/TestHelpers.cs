@@ -9,7 +9,7 @@ namespace CommonUtils
     {
 
         //TODO unittest
-        public static string SimplifyWhitespaces(string input, bool getRidOfEmptyLines, bool trimStrings)
+        public static string SimplifyWhitespaces(string input, bool getRidOfEmptyLines = true, bool trimStrings = true)
         {
             IEnumerable<string> linesForOutput = input.Replace("\r", "").Split('\n');
             if (getRidOfEmptyLines)
